@@ -16,6 +16,8 @@ import mg.fitapi.backend.user.jpa.UserQDSLRepository;
 import mg.fitapi.backend.user.model.User;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -35,10 +37,11 @@ public class AddMeal {
 
     // znalezienie odpowiedniego dnia, jezeli nie ma to znaczy ze pierwszy dzien i robi inserta
     Day day;
-    if( dayRepository.findByUserAndDate(user, request.getLocalDate()).isEmpty() ){
-      day = daySpringDataRepository.save(new Day(null, request.getLocalDate() ,0, user));
+    LocalDate localDate = LocalDate.parse(request.getDate());
+    if( dayRepository.findByUserAndDate(user, localDate).isEmpty() ){
+      day = daySpringDataRepository.save(new Day(null, localDate ,0, user));
     } else {
-      day = dayRepository.findByUserAndDate(user, request.getLocalDate())
+      day = dayRepository.findByUserAndDate(user, localDate)
               .orElseThrow(() -> {throw new RuntimeException();});
     }
 
@@ -48,7 +51,8 @@ public class AddMeal {
     Product product = productRepository.findAllByName(request.getProductName())
             .orElseThrow(() -> {throw new RuntimeException();});
 
-    return repository.save(Meal.of(request.getGram(), day, product)).toRepresentation();
+
+    return repository.save(Meal.of(request.getGram(), day, product)).toRepresentation(product.toRepresentation());
   }
 
 }

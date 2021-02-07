@@ -25,8 +25,11 @@ public class Meal {
   @AllArgsConstructor
   public static class MealRepresentation{
     private float gram;
-    private DayRepresentation day;
-    private ProductRepresentation product;
+    private String name;
+    private float protein;
+    private float carbo;
+    private float fat;
+    private float calory;
   }
 
   private static final String GENERATOR_NAME = "Meal";
@@ -52,7 +55,7 @@ public class Meal {
     return new Meal(null, gram, day, product);
   }
 
-  public MealRepresentation toRepresentation() {
-    return new MealRepresentation(gram, day.toRepresentation(), product.toRepresentation());
+  public MealRepresentation toRepresentation(ProductRepresentation p) {
+    return new MealRepresentation(gram, p.getName(), p.getProtein(), p.getCarbo(), p.getFat(), p.getCalory());
   }
 }

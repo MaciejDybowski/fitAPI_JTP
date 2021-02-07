@@ -20,4 +20,5 @@ public class GetProduct {
   public List<ProductRepresentation> getAllProducts() {
     return productRepository.findAllProducts().stream().map(Product::toRepresentation).collect(Collectors.toList());
   }
+
 }

@@ -16,6 +16,7 @@ public class AddUser {
   private final UserSpringDataRepository userSpringDataRepository;
 
   public UserRepresentation addUser(AddUserDTO request) {
+
     User user = userSpringDataRepository.save(User.of(request));
     return user.toRepresentation();
   }

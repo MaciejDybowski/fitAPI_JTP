@@ -32,4 +32,5 @@ public class ProductController {
   public ProductRepresentation addNewProduct(@RequestBody AddProductDTO request) {
     return addProduct.add(request);
   }
+
 }

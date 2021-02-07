@@ -8,7 +8,6 @@ public class AddUserDTO {
   private String firstName;
   private String lastName;
   private int age;
-  private String gender;
   private float weight;
   private float height;
   private String login;

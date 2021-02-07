@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @Data
 public class AddMealDTO {
   private float gram;
-  private LocalDate localDate;
+  private String date;
   private String login;
   private String productName;
 

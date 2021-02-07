@@ -24,8 +24,7 @@ public class Day {
   public static class DayRepresentation {
     private LocalDate date;
     private int water;
-    private UserRepresentation user;
-    private float totalCalory;
+
   }
 
   @Builder
@@ -33,10 +32,10 @@ public class Day {
   @AllArgsConstructor
   public static class DaySummary {
     private int water;
-    private float protein;
-    private float carbs;
-    private float fat;
-    private float totalCalory;
+    private int protein;
+    private int carbs;
+    private int fat;
+    private int totalCalory;
   }
 
 
@@ -60,13 +59,16 @@ public class Day {
   private User user;
 
   public DayRepresentation toRepresentation() {
-    return new DayRepresentation(date, water, user.toRepresentation(), 0);
+    return new DayRepresentation(date, water);
   }
-  public DayRepresentation toRepresentation(float totalCalory) {
-    return new DayRepresentation(date, water, user.toRepresentation(), totalCalory);
-  }
+
 
   public static Day of(User user, LocalDate localDate){
     return new Day(null, localDate, 0, user);
+  }
+
+  public Day addWater(){
+    this.water++;
+    return this;
   }
 }

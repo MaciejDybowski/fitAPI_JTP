@@ -38,5 +38,11 @@ public class UserController {
     return getUser.login(request);
   }
 
+  @GetMapping("/users/info")
+  @Operation(summary = "Pobranie informacji o userze")
+  public UserRepresentation getDetails(@Parameter String login){
+    return getUser.getOneUser(login);
+  }
+
 
 }

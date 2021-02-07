@@ -35,4 +35,10 @@ public class GetUser {
       return null;
     }
   }
+
+  public UserRepresentation getOneUser(String login) {
+    return userQDSLRepository.findByLogin(login)
+            .orElseThrow()
+            .toRepresentation();
+  }
 }

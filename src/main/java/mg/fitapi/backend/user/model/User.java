@@ -23,10 +23,12 @@ public class User {
     private String firstName;
     private String lastName;
     private int age;
-    private String gender;
     private float weight;
     private float height;
     private String login;
+    private float demandProtein;
+    private float demandFat;
+    private float demandCarbs;
   }
 
 
@@ -47,9 +49,6 @@ public class User {
   @Column(name = "age")
   private int age;
 
-  @Column(name = "gender")
-  private String gender;
-
   @Column(name = "weight")
   private float weight;
 
@@ -62,12 +61,30 @@ public class User {
   @Column(name = "password")
   private String password;
 
+  @Column(name = "daily_demand_kcl")
+  private int dailyKcal;
+
+  @Column(name = "daily_demand_protein")
+  private int dailyProtein;
+
+  @Column(name = "daily_demand_carbs")
+  private int dailyCarbs;
+
+  @Column(name = "daily_demand_fat")
+  private int dailyFat;
+
   public UserRepresentation toRepresentation() {
-    return new UserRepresentation(firstName, lastName, age, gender, weight, height, login);
+    return new UserRepresentation(firstName, lastName, age, weight, height, login, dailyProtein, dailyFat, dailyCarbs);
   }
 
-  public static User of(AddUserDTO request) {
-    return new User(null, request.getFirstName(), request.getLastName(), request.getAge(), request.getGender(), request.getWeight(), request.getHeight(), request.getLogin(), request.getPassword());
+  public static User of(AddUserDTO r) {
+
+    int dailyDemand = (int) (66 + (13.7 * r.getAge()) + (5 * r.getHeight()) - (6.8 * r.getAge()));
+    int protein = (int) (r.getWeight() * 2);
+    int fat = (int) ((dailyDemand * 0.25) / 9);
+    int carbs = (int) ((dailyDemand - protein * 4) - (dailyDemand * 0.25)) / 4;
+
+    return new User(null, r.getFirstName(), r.getLastName(), r.getAge(), r.getWeight(), r.getHeight(), r.getLogin(), r.getPassword(), dailyDemand, protein, carbs, fat);
   }
 
 }

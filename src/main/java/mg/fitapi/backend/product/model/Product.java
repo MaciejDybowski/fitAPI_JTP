@@ -27,6 +27,7 @@ public class Product {
     private float calory;
   }
 
+
   private static final String GENERATOR_NAME = "Product";
   private static final String SEQUENCE_NAME = "f_products_product_id_seq";
   @Id
